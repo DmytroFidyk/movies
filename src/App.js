@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Movie from '../src/components/Movie';
+import Header from '../src/components/Header';
 
 const App = () => {
   const [ movies, setMovies ] = useState([]);
@@ -19,14 +20,12 @@ const App = () => {
   });
 
   return (
-    <div className="wrapper">
-      <header className="header">
-        <h1 className="header__title">Movies</h1>
-      </header>
+    <>
+      <Header/>
       <div className="movies__list">
-          { moviesList }
+        { moviesList }
       </div>
-    </div>
+    </>
   );
 };
 

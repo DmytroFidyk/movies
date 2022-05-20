@@ -1,0 +1,14 @@
+.wrapper {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.header__title {
+    color: white;
+}
+
+.movies__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

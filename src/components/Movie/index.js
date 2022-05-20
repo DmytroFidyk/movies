@@ -1,12 +1,18 @@
-import './movie.css';
+import './Movie.css';
 
-const Movie = ({ posterPath, genres }) => {
+const Movie = ({ title, posterPath, genres }) => {
+
+    const path = `https://image.tmdb.org/t/p/w200${posterPath}`;
+
     return (
         <div className="movie__container">
             <div className="movie__poster">
-                <img src={posterPath} alt="Movie poster"/>
+                <img src={ path } alt="Movie poster"/>
             </div>
-            <div className="movie__genres">{ genres }</div>
+            <div className="movie__title__container">
+                <h3 className="movie__title">{ title }</h3>    
+            </div>
+            <div className="movie__genres">Пригоди Фантастика{ /*genres*/ }</div>
         </div>
     );
 };

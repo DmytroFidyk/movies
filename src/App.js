@@ -1,30 +1,21 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-import Movie from '../src/components/Movie';
+
+
 import Header from '../src/components/Header';
+import Details from '../src/components/Details';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import MovieList from '../src/components/MovieList';
 
 const App = () => {
-  const [ movies, setMovies ] = useState([]);
-
-  useEffect(() => {
-    fetch('https://api.themoviedb.org/3/movie/popular?api_key=d7de2b3fba336e7ceb28c02600603538')
-      .then(response => response.json())
-      .then(json => {
-        console.log(json.results);
-        setMovies(json.results);
-      });
-  }, []);
-
-  const moviesList = movies.map(movie => {
-     return <Movie key={movie.id} title={movie.title} posterPath={movie.poster_path} genres={movie.genre_ids}/>;
-  });
-
   return (
     <>
-      <Header/>
-      <div className="movies__list">
-        { moviesList }
-      </div>
+      <Router>
+        <Header/>
+        <Routes>
+        <Route path="/" element={<MovieList />}/>
+          <Route path="/details" element={<Details />}/>
+        </Routes>
+      </Router>
     </>
   );
 };

@@ -17,7 +17,7 @@ const MovieList = () => {
 
   const moviesList = movies.map(movie => {
      return (
-            <Link key={movie.id} to="/details" state={{ movieId: movie.id }}>
+            <Link key={movie.id} to="/details" state={{ movieId: movie.id }} className="link">
                 <Movie 
                     key={movie.id} 
                     title={movie.title} 

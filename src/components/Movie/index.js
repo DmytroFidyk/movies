@@ -1,6 +1,7 @@
 import './Movie.css';
-import { Link } from 'react-router-dom';
+
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Movie = ({ movieId, title, posterPath, genres, route }) => {
 
@@ -14,11 +15,13 @@ const Movie = ({ movieId, title, posterPath, genres, route }) => {
         iconPath = '/images/icons/fill-favorite-icon.png';
 
     return (
-        <div className="movie__container">   
-            <div className="movie__poster">
-                <img src={ path } alt="Movie poster"/>
-                
-            </div>
+        <div className="movie__container">
+            <Link to="/details" state={{ movieId: movieId }}>
+                <div className="movie__poster">
+                    <img src={ path } alt="Movie poster"/>               
+                </div>
+            </Link>  
+            
             
             <div className="movie__title__container">
                 <h3 className="movie__title">{ title }</h3> 

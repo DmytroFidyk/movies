@@ -2,6 +2,7 @@ import './MovieList.css';
 import { useState, useEffect } from 'react';
 import Movie from '../Movie';
 
+
 const MovieList = () => {
     const [ movies, setMovies ] = useState([]);
 
@@ -16,13 +17,15 @@ const MovieList = () => {
 
     const moviesList = movies.map(movie => {
         return (
-            <Movie 
-                key={movie.id}
-                movieId={movie.id} 
-                title={movie.title} 
-                posterPath={movie.poster_path} 
-                genres={movie.genre_ids}
-            />
+            
+                <Movie 
+                    key={movie.id}
+                    movieId={movie.id} 
+                    title={movie.title} 
+                    posterPath={movie.poster_path} 
+                    genres={movie.genre_ids}
+                />
+               
         );
     });
 

@@ -58,3 +58,7 @@
     color: white;
     font-size: 18px;
 }
+
+.menu__link {
+    text-decoration: none;
+}

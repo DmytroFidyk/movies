@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Movie from '../Movie';
 
 
-const MovieList = () => {
+const MovieList = ({ addToFavorites, removeFromFavorites }) => {
     const [ movies, setMovies ] = useState([]);
 
     useEffect(() => {
@@ -16,16 +16,16 @@ const MovieList = () => {
     }, []);
 
     const moviesList = movies.map(movie => {
-        return (
-            
-                <Movie 
-                    key={movie.id}
-                    movieId={movie.id} 
-                    title={movie.title} 
-                    posterPath={movie.poster_path} 
-                    genres={movie.genre_ids}
-                />
-               
+        return (            
+            <Movie 
+                key={movie.id}
+                movieId={movie.id} 
+                title={movie.title} 
+                posterPath={movie.poster_path} 
+                genres={movie.genre_ids}
+                addToFavorites={addToFavorites}
+                removeFromFavorites={removeFromFavorites}
+            />            
         );
     });
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Movie from '../Movie';
 
-const Details = () => {
+const Details = ({addToFavorites, removeFromFavorites}) => {
     const [ movie, setMovie ] = useState('');
     const [ recommendations, setRecommendations ] = useState([]);
     const location = useLocation();
@@ -39,7 +39,7 @@ const Details = () => {
 
     if (recommendations.length !== 0) {
         recommendedMovies = recommendations.map(item => {
-            return <Movie key={item.id} title={item.title} posterPath={item.poster_path} genres={item.genre_ids}/>
+            return <Movie key={item.id} title={item.title} posterPath={item.poster_path} genres={item.genre_ids} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>
         });
     }
 
@@ -79,10 +79,7 @@ const Details = () => {
                     </div>
                 </div>
             </div>
-                
-                
-                
-            
+
             <div id="recommendations__list" className="recommendations__list">
                 { recommendedMovies }
             </div>

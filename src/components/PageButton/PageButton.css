@@ -1,0 +1,19 @@
+.page__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    color: rgba(212, 116, 236, 0.827);
+    background-color: black;
+    border-radius: 10px;
+    border: 2px solid rgba(212, 116, 236, 0.827);
+    margin: 4px;
+    cursor: pointer;
+}
+
+.current {
+    color: white;
+    background-color: rgba(212, 116, 236, 0.827);
+}

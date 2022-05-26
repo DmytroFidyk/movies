@@ -4,10 +4,11 @@ import { useLocation } from 'react-router-dom';
 import Movie from '../Movie';
 
 const Details = ({addToFavorites, removeFromFavorites}) => {
-    const [ movie, setMovie ] = useState('');
+    const [ movie, setMovie ] = useState({});
     const [ recommendations, setRecommendations ] = useState([]);
     const location = useLocation();
     const movieId = location.state.movieId;
+
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=d7de2b3fba336e7ceb28c02600603538&language=en-US`)
@@ -37,10 +38,13 @@ const Details = ({addToFavorites, removeFromFavorites}) => {
 
     let recommendedMovies;
 
-    if (recommendations.length !== 0) {
+    if (recommendations) {
         recommendedMovies = recommendations.map(item => {
             return <Movie key={item.id} title={item.title} posterPath={item.poster_path} genres={item.genre_ids} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>
         });
+    }
+    else {
+        return <div>Recommendations not found</div>
     }
 
     function moveLeft() {
@@ -57,7 +61,7 @@ const Details = ({addToFavorites, removeFromFavorites}) => {
         <>
         <div className="details__container">
             <div className="poster__container">
-                { movie.poster_path && <img src={path} alt="Movie poster"/> }
+                { movie.poster_path && <img id="details__poster" src={path} alt="Movie poster"/> }
             </div>
             <div className="text__container">
                 <h2>{ movie.title + ` (${ movie.release_date ? movie.release_date.slice(0, 4) : ''})`}</h2>
@@ -79,11 +83,9 @@ const Details = ({addToFavorites, removeFromFavorites}) => {
                     </div>
                 </div>
             </div>
-
             <div id="recommendations__list" className="recommendations__list">
                 { recommendedMovies }
-            </div>
-            
+            </div>            
         </div>
         </>
     );

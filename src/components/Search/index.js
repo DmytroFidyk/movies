@@ -1,5 +1,6 @@
 import './Search.css';
 import { useState, useEffect } from 'react';
+import SearchResult from '../SearchResult';
 
 const Search = () => {
     const [ searchQuery, setSearchQuery ] = useState('');
@@ -12,8 +13,13 @@ const Search = () => {
                 .then(response => response.json())
                 .then(json => {
                     console.log(json);
-                    setSearchResults(json.results);
+                    setSearchResults(json.results);                  
                 });
+                document.getElementById('search__results').style.visibility = 'visible';
+        }
+        else {
+            setSearchResults([]);
+            document.getElementById('search__results').style.visibility = 'hidden';
         }
     }, [searchQuery]);
 
@@ -35,15 +41,18 @@ const Search = () => {
             searchInput.style.width = '0px';
             searchInput.style.border = 'none';
             searchInput.style.padding = '0px';
+            searchInput.value = '';
             setDisplayed(isDisplayed => !isDisplayed);
         }
     }
 
-    /*const searchMoviesResults = searchResults.map(movie => {
+    const searchMoviesResults = searchResults.map(movie => {
         return (
-            
+            <SearchResult key={movie.id} id={movie.id} posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date}/>
         );
-    });*/
+    });
+
+
 
     return (
         <div className="search__container">
@@ -59,8 +68,8 @@ const Search = () => {
                     <img id="search-icon" src="/images/icons/search.png" alt="Search icon"/>
                 </div>
             </div>          
-            <div className="search__results">
-                {}
+            <div id="search__results" className="search__results">
+                {searchMoviesResults.length > 0 ? searchMoviesResults : <div className="no-results">Nothing found</div>}
             </div>
         </div>
     );

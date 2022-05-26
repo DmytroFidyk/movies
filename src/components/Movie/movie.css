@@ -40,13 +40,13 @@
     font-weight: 600;
 }
 
-.movie__poster {
-    
-}
-
 .favorite__button {
    border: none;
    margin-left: 0;
    padding: 0;
    opacity: 0.8;
 }
+
+#favorite__icon {
+    z-index: 0;
+} 

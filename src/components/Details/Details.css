@@ -27,6 +27,14 @@ h2 {
     margin-right: 10px;
 }
 
+.details__container .poster__container {
+    background-color: black;
+}
+
+.details__container img {
+    width: 400px;
+}
+
 .text__container {
     color: white;
     font-size: 20px;

@@ -1,11 +1,8 @@
-
-
 .search__input__container {
     display: flex;
     align-items: center;
     border-radius: 20px;
     background-color: white;
-
 }
 
 .search__input {
@@ -40,13 +37,25 @@
     height: 20px;
 }
 
-.search__result__container {
-    width: 100%;
-    position: absolute;
+.search__results {
+   position: absolute;
+   right: 5%;
+   top: 100%;
+   width: 90%;
+   margin: 0 auto;
+   background-color: white;
+   z-index: 1;
+   padding: 10px;
+   max-height: 400px;
+   overflow: hidden;
+   overflow-y: scroll;
+   visibility: hidden;
 }
-.search__result {
-    height: 300px;
-    width: 100%;
-    background-color: white;
+
+.no-results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: black;
+    height: 100px;
 }

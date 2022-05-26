@@ -1,0 +1,43 @@
+.search__result {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    cursor: pointer;
+}
+
+.search__result:hover {
+    background-color: #CACACA;
+}
+
+.poster__container {
+    height: 100%;
+    background-color: white;
+}
+
+.poster__container > img {
+    width: 70px;
+}
+
+.search__result .movie__title {
+    color: black;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    
+}
+
+.text__container {
+    width: 80%;
+    
+}
+
+.search__result .text__container {
+    padding: 0px 10px;
+}
+
+.text__container span {
+    color: rgba(212, 116, 236, 0.827);
+    font-size: 16px;
+}

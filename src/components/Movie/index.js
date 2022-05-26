@@ -34,14 +34,14 @@ const Movie = ({ movieId, title, posterPath, genres, addToFavorites, removeFromF
 
     return (
         <div className="movie__container">
-            <Link to="/details" state={{ movieId: movieId }}>
+            <Link key={movieId} to="/details" state={{ movieId: movieId }}>
                 <div className="movie__poster">
                     <img src={ path } alt="Movie poster"/>               
                 </div>
             </Link>                    
             <div className="movie__title__container">
                 <h3 className="movie__title">{ title }</h3> 
-                <div className="favorite__button round" onClick={() => {
+                <div className="favorite__button" onClick={() => {
                     if (isFavorite === false) {
                         addToFavorites(movie);
                         changeIsFavorite(true);

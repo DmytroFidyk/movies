@@ -2,7 +2,7 @@ import './Search.css';
 import { useState, useEffect } from 'react';
 import SearchResult from '../SearchResult';
 
-const Search = () => {
+const Search = ({ genres }) => {
     const [ searchQuery, setSearchQuery ] = useState('');
     const [ searchResults, setSearchResults ] = useState([]);
     const [ isDisplayed, setDisplayed ] = useState(false);
@@ -51,8 +51,6 @@ const Search = () => {
             <SearchResult key={movie.id} id={movie.id} posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date}/>
         );
     });
-
-
 
     return (
         <div className="search__container">

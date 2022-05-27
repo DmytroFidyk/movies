@@ -10,6 +10,16 @@ import Details from '../src/components/Details';
 
 const App = () => {
   const [ favorites, setFavorites ] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
+  const [ genres, setGenres ] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=d7de2b3fba336e7ceb28c02600603538&language=en-US`)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json.genres);
+            setGenres(json.genres);
+        });
+}, []);
 
   console.log(favorites);
 
@@ -29,9 +39,9 @@ const App = () => {
   return (
     <>
       <Router>
-        <Header/>
+        <Header genres={genres}/>
         <Routes>
-          <Route path="/" element={<MovieList addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
+          <Route path="/" element={<MovieList genres={genres} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
           <Route path="/details" element={<Details addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
           <Route path="/favorites" element={<Favorites favorites={favorites} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
         </Routes>

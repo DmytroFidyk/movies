@@ -3,27 +3,46 @@ import './Movie.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Movie = ({ movieId, title, posterPath, genres, addToFavorites, removeFromFavorites }) => {
-
+const Movie = ({ movieId, title, posterPath, movieGenres, allGenres, addToFavorites, removeFromFavorites }) => {
     const [ isFavorite, changeIsFavorite ] = useState(false);
 
-    useEffect(() => {
+    useEffect(() => {      
         const favorites = JSON.parse(localStorage.getItem('favorites'));
-
-        if (favorites) {
-            if (favorites.some(movie => movie.id === movieId)) 
-                changeIsFavorite(true);
-            else
-                changeIsFavorite(false);        
+        
+        if (favorites.length > 0) {
+            if (favorites.some(movie => movie.id === movieId)) {               
+                changeIsFavorite(isFavorite => !isFavorite);
+            } 
         }              
     }, []);
 
-    const path = `https://image.tmdb.org/t/p/w200${posterPath}`;
+    let genreNames = [];
+    let genresComponents;
+
+    if (movieGenres && allGenres) {
+        for (let i = 0; i < movieGenres.length; i++) {
+            for (let j = 0; j < allGenres.length; j++) {
+                if (movieGenres[i] === allGenres[j].id) {
+                    genreNames.push(allGenres[j]);
+                    continue;
+                }       
+            }
+        }
+
+        if (genreNames) {
+            genresComponents = genreNames.map(genre => <div key={genre.id} className="genre">{genre.name}</div>);
+        }
+    }
 
     let iconPath = '/images/icons/favorite-icon.png';
 
-    if (isFavorite)
+    if (isFavorite) {
         iconPath = '/images/icons/fill-favorite-icon.png';
+    } else {
+        iconPath = '/images/icons/favorite-icon.png';
+    }
+
+    const path = `https://image.tmdb.org/t/p/w200${posterPath}`;
 
     const movie = {
         id: movieId,
@@ -34,7 +53,7 @@ const Movie = ({ movieId, title, posterPath, genres, addToFavorites, removeFromF
 
     return (
         <div className="movie__container">
-            <Link key={movieId} to="/details" state={{ movieId: movieId }}>
+            <Link to="/details" state={{ movieId: movieId }}>
                 <div className="movie__poster">
                     <img src={ path } alt="Movie poster"/>               
                 </div>
@@ -44,18 +63,18 @@ const Movie = ({ movieId, title, posterPath, genres, addToFavorites, removeFromF
                 <div className="favorite__button" onClick={() => {
                     if (isFavorite === false) {
                         addToFavorites(movie);
-                        changeIsFavorite(true);
+                        changeIsFavorite(isFavorite => !isFavorite);
                     }
                     else {
                         removeFromFavorites(movie);
-                        changeIsFavorite(false);
+                        changeIsFavorite(isFavorite => !isFavorite);
                     }
                     
                 }}> 
                     <img id="favorite__icon" src={iconPath} alt="Favorite icon"/>
                 </div>   
             </div>            
-            <div className="movie__genres">Пригоди Фантастика{ /*genres*/ }</div>
+            <div className="movie__genres">{ genresComponents }</div>
         </div>
     );
 };

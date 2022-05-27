@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react';
 import Movie from '../Movie';
 import PageButton from '../PageButton';
 
-const MovieList = ({ addToFavorites, removeFromFavorites }) => {
+const MovieList = ({ genres, addToFavorites, removeFromFavorites }) => {
     const [ movies, setMovies ] = useState([]);
     const [ pageNumbers, setPageNumbers ] = useState(10);
     const [ currentPage, setCurrentPage ] = useState(1);
+    
 
     console.log(currentPage);
 
@@ -32,7 +33,8 @@ const MovieList = ({ addToFavorites, removeFromFavorites }) => {
                 movieId={movie.id} 
                 title={movie.title} 
                 posterPath={movie.poster_path} 
-                genres={movie.genre_ids}
+                movieGenres={movie.genre_ids}
+                allGenres={genres}
                 addToFavorites={addToFavorites}
                 removeFromFavorites={removeFromFavorites}
             />            

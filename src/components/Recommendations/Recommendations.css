@@ -1,0 +1,31 @@
+.recommendations {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.recommendations__header {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recommendations__list {
+    display: flex;
+    overflow: hidden;
+}
+
+.arrow-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.left {
+    transform: rotate(180deg);
+}
+
+.controls__container {
+    display: flex;
+}

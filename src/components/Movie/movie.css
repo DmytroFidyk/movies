@@ -50,3 +50,15 @@
 #favorite__icon {
     z-index: 0;
 } 
+
+.movie__genres {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 100%;
+}
+
+.movie__genres .genre {
+    font-size: 12px;
+    margin: 4px;
+}

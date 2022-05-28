@@ -12,7 +12,7 @@ const Recommendations = ({ movieId, addToFavorites, removeFromFavorites }) => {
                 console.log(json);
                 setRecommendations(json.results);
             });
-    }, []);
+    }, [recommendations]);
 
     let recommendedMovies;
 

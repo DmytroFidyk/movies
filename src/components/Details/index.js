@@ -18,7 +18,7 @@ const Details = ({addToFavorites, removeFromFavorites}) => {
                 console.log(json);
                 setMovie(json);
             });
-    }, []);
+    }, [movieId]);
 
     
 

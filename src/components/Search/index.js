@@ -12,7 +12,6 @@ const Search = ({ genres }) => {
             fetch(`https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=d7de2b3fba336e7ceb28c02600603538`)
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json);
                     setSearchResults(json.results);                  
                 });
                 document.getElementById('search__results').style.visibility = 'visible';
@@ -27,28 +26,33 @@ const Search = ({ genres }) => {
         setSearchQuery(event.target.value);
     }
 
-    console.log(searchQuery);
-
     function changeDisplayingSearchField() {
         const searchInput = document.getElementById('search__input');
+        searchInput.value = '';
 
         if (!isDisplayed) {
             searchInput.style.width = '360px';
             searchInput.style.border = '1px solid white';
-            searchInput.style.padding = '0px 20px';
-            setDisplayed(isDisplayed => !isDisplayed);
+            searchInput.style.padding = '0px 20px';           
         } else {
             searchInput.style.width = '0px';
             searchInput.style.border = 'none';
-            searchInput.style.padding = '0px';
-            searchInput.value = '';
-            setDisplayed(isDisplayed => !isDisplayed);
+            searchInput.style.padding = '0px';                     
         }
+
+        setSearchQuery('');
+        setDisplayed(isDisplayed => !isDisplayed);
     }
 
     const searchMoviesResults = searchResults.map(movie => {
         return (
-            <SearchResult key={movie.id} id={movie.id} posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date}/>
+            <SearchResult 
+                key={movie.id} 
+                id={movie.id} 
+                posterPath={movie.poster_path} 
+                title={movie.title} 
+                releaseDate={movie.release_date}
+            />
         );
     });
 

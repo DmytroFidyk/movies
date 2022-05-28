@@ -4,12 +4,13 @@ import { useLocation } from 'react-router-dom';
 
 import Recommendations from '../Recommendations';
 
-const Details = ({addToFavorites, removeFromFavorites}) => {
+const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
     const [ movie, setMovie ] = useState({});
     
     const location = useLocation();
     const movieId = location.state.movieId || localStorage.getItem('currentMovie');
 
+    window.scrollTo(0, 0);
     useEffect(() => {
         localStorage.setItem('currentMovie', movieId);
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=d7de2b3fba336e7ceb28c02600603538&language=en-US`)
@@ -19,8 +20,6 @@ const Details = ({addToFavorites, removeFromFavorites}) => {
                 setMovie(json);
             });
     }, [movieId]);
-
-    
 
     const path = `https://image.tmdb.org/t/p/w400${movie.poster_path}`;
 
@@ -44,7 +43,7 @@ const Details = ({addToFavorites, removeFromFavorites}) => {
                     <p>{ movie.overview }</p>
                 </div>
             </div>
-            <Recommendations movieId={movieId} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites} />
+            <Recommendations movieId={movieId} allGenres={allGenres} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites} />
         </>
     );
 };

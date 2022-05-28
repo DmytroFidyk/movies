@@ -68,8 +68,7 @@ const Movie = ({ movieId, title, posterPath, movieGenres, allGenres, addToFavori
                     else {
                         removeFromFavorites(movie);
                         changeIsFavorite(isFavorite => !isFavorite);
-                    }
-                    
+                    }                    
                 }}> 
                     <img id="favorite__icon" src={iconPath} alt="Favorite icon"/>
                 </div>   

@@ -2,28 +2,32 @@ import './Recommendations.css';
 import { useState, useEffect } from 'react';
 import Movie from '../Movie';
 
-const Recommendations = ({ movieId, addToFavorites, removeFromFavorites }) => {
+const Recommendations = ({ movieId, allGenres, addToFavorites, removeFromFavorites }) => {
     const [ recommendations, setRecommendations ] = useState([]);
 
     useEffect(() => {
+        console.log('useEffect!!!!!!!');
         fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=d7de2b3fba336e7ceb28c02600603538&language=en-US&page=1`)
             .then(response => response.json())
             .then(json => { 
                 console.log(json);
                 setRecommendations(json.results);
+                document.getElementById('recommendations__list').scrollTo(-1000, 0);
             });
-    }, [recommendations]);
+    }, [movieId]);
 
     let recommendedMovies;
 
     if (recommendations) {
         recommendedMovies = recommendations.map(item => {
-            return <Movie key={item.id} movieId={item.id} title={item.title} posterPath={item.poster_path} genres={item.genre_ids} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>
+            return <Movie key={item.id} movieId={item.id} title={item.title} posterPath={item.poster_path} movieGenres={item.genre_ids} allGenres={allGenres} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>
         });
     }
     else {
         return <div>Recommendations not found</div>
     }
+
+    
 
     return (
         <div className="recommendations">

@@ -42,7 +42,7 @@ const App = () => {
         <Header genres={genres}/>
         <Routes>
           <Route path="/" element={<MovieList genres={genres} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
-          <Route path="/details" element={<Details addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
+          <Route path="/details" element={<Details allGenres={genres} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
           <Route path="/favorites" element={<Favorites favorites={favorites} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>}/>
         </Routes>
       </Router>

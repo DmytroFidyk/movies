@@ -12,6 +12,7 @@ const Search = ({ genres }) => {
             fetch(`https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=d7de2b3fba336e7ceb28c02600603538`)
                 .then(response => response.json())
                 .then(json => {
+                    console.log(json.results);
                     setSearchResults(json.results);                  
                 });
                 document.getElementById('search__results').style.visibility = 'visible';

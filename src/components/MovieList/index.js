@@ -9,11 +9,15 @@ const MovieList = ({ genres, addToFavorites, removeFromFavorites }) => {
     const [ movies, setMovies ] = useState([]);
     const [ pageNumbers, setPageNumbers ] = useState(10);
     const [ currentPage, setCurrentPage ] = useState(1);
+    const [ startPagination, setStartPagination ] = useState(1);
     
+    window.scrollTo(0, 0);
 
-    console.log(currentPage);
-
-    function changeCurrentPage(pageNumber) {  
+    function changeCurrentPage(pageNumber) {
+        if (pageNumber >= pageNumbers) {
+            setStartPagination(pageNumbers);
+            setPageNumbers(pageNumbers => pageNumbers + 10);
+        }
         setCurrentPage(pageNumber);
     }
 
@@ -44,14 +48,36 @@ const MovieList = ({ genres, addToFavorites, removeFromFavorites }) => {
     let paginationPageBlocks = [];
     let isCurrent = false;
 
-    for (let i = 1; i <= pageNumbers; i++) {
+    for (let i = startPagination; i <= pageNumbers; i++) {
         if (i === currentPage) {
             isCurrent = true;
-        }
-        else {
+        } else {
             isCurrent = false;
         }
+        
         paginationPageBlocks.push(<PageButton key={i} pageNumber={i} isCurrent={isCurrent} changeCurrentPage={changeCurrentPage} />);
+    }
+
+    function toPrevious() {
+        if (currentPage > 1) {
+            if (currentPage === startPagination) {
+                setStartPagination(startPagination => startPagination - 1);
+                setPageNumbers(pageNumbers => pageNumbers - 1);
+            }
+            setCurrentPage(currentPage => currentPage - 1);     
+        }
+    }
+
+    function toNext() {
+        if (currentPage === pageNumbers) {
+            setStartPagination(pageNumbers);
+            setPageNumbers(pageNumbers => pageNumbers + 10);
+            setCurrentPage(currentPage => currentPage + 1);
+        } else {
+            setCurrentPage(currentPage => currentPage + 1);
+        }
+                
+        
     }
 
     return (
@@ -61,7 +87,9 @@ const MovieList = ({ genres, addToFavorites, removeFromFavorites }) => {
                 { moviesList }
             </div>
             <div className="pagination">
+                <div className="pagination__button" onClick={toPrevious}>Previous</div>
                 { paginationPageBlocks }
+                <div className="pagination__button" onClick={toNext}>Next</div>
             </div>
         </>
     );

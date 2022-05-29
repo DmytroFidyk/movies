@@ -6,11 +6,13 @@ import Recommendations from '../Recommendations';
 
 const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
     const [ movie, setMovie ] = useState({});
-    
+    const [ isFavorite, changeIsFavorite ] = useState(false);
+
     const location = useLocation();
     const movieId = location.state.movieId || localStorage.getItem('currentMovie');
 
     window.scrollTo(0, 0);
+
     useEffect(() => {
         localStorage.setItem('currentMovie', movieId);
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=d7de2b3fba336e7ceb28c02600603538&language=en-US`)
@@ -21,17 +23,18 @@ const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
             });
     }, [movieId]);
 
-    const [ isFavorite, changeIsFavorite ] = useState(false);
-
     useEffect(() => {      
         const favorites = JSON.parse(localStorage.getItem('favorites'));
         
         if (favorites.length > 0) {
             if (favorites.some(movie => movie.id === movieId)) {               
-                changeIsFavorite(isFavorite => !isFavorite);
+                changeIsFavorite(true);
+            }
+            else {
+                changeIsFavorite(false);
             } 
         }              
-    }, []);
+    }, [movie]);
 
     let iconPath = '/images/icons/favorite-icon.png';
 
@@ -40,7 +43,6 @@ const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
     } else {
         iconPath = '/images/icons/favorite-icon.png';
     }
-
 
     const path = `https://image.tmdb.org/t/p/w400${movie.poster_path}`;
 
@@ -65,6 +67,13 @@ const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
             return <span key={country.name} className="country">{country.name}</span>;
         });
     }
+
+    const favoriteMovie = {
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster_path,
+        isFavorite: isFavorite
+    };
      
     return (
         <>
@@ -77,12 +86,14 @@ const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
                         <h2>{ movie.title + ` (${ movie.release_date ? movie.release_date.slice(0, 4) : ''})`}</h2>
                         <div className="favorite__button" onClick={() => {
                             if (isFavorite === false) {   
-                                addToFavorites(movie);    
+                                addToFavorites(favoriteMovie);   
+                                changeIsFavorite(isFavorite => !isFavorite);  
                             }
                             else {
-                                removeFromFavorites(movie);
+                                removeFromFavorites(favoriteMovie);
+                                changeIsFavorite(isFavorite => !isFavorite); 
                             }         
-                            changeIsFavorite(isFavorite => !isFavorite);           
+                                      
                         }}> 
                             <img id="favorite__icon__details" src={iconPath} alt="Favorite icon"/>
                         </div>

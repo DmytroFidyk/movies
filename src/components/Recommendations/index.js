@@ -6,7 +6,6 @@ const Recommendations = ({ movieId, allGenres, addToFavorites, removeFromFavorit
     const [ recommendations, setRecommendations ] = useState([]);
 
     useEffect(() => {
-        console.log('useEffect!!!!!!!');
         fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=d7de2b3fba336e7ceb28c02600603538&language=en-US&page=1`)
             .then(response => response.json())
             .then(json => { 

@@ -10,15 +10,15 @@ const MovieList = ({ genres, addToFavorites, removeFromFavorites }) => {
     const [ pageNumbers, setPageNumbers ] = useState(10);
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ startPagination, setStartPagination ] = useState(1);
-    
-    window.scrollTo(0, 0);
 
     function changeCurrentPage(pageNumber) {
+        
         if (pageNumber >= pageNumbers) {
             setStartPagination(pageNumbers);
             setPageNumbers(pageNumbers => pageNumbers + 10);
         }
         setCurrentPage(pageNumber);
+        window.scrollTo(0, 0);
     }
 
     useEffect(() => {
@@ -66,6 +66,7 @@ const MovieList = ({ genres, addToFavorites, removeFromFavorites }) => {
             }
             setCurrentPage(currentPage => currentPage - 1);     
         }
+        window.scrollTo(0, 0);
     }
 
     function toNext() {
@@ -77,12 +78,11 @@ const MovieList = ({ genres, addToFavorites, removeFromFavorites }) => {
             setCurrentPage(currentPage => currentPage + 1);
         }
                 
-        
+        window.scrollTo(0, 0);
     }
 
     return (
         <>
-            {/*<h2>Popular movies</h2>*/}
             <div className="movies__list">
                 { moviesList }
             </div>

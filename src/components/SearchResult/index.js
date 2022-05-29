@@ -21,8 +21,6 @@ const SearchResult = ({ id, posterPath, title, releaseDate }) => {
                     <div className="title__container">
                         <h3 className="movie__title">{title}</h3>
                     </div>
-                    
-                    <span>{}</span>
                 </div>
             </div>
         </Link>       

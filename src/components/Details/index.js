@@ -11,8 +11,6 @@ const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
     const location = useLocation();
     const movieId = location.state.movieId || localStorage.getItem('currentMovie');
 
-    window.scrollTo(0, 0);
-
     useEffect(() => {
         localStorage.setItem('currentMovie', movieId);
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=d7de2b3fba336e7ceb28c02600603538&language=en-US`)
@@ -20,6 +18,7 @@ const Details = ({ allGenres, addToFavorites, removeFromFavorites}) => {
             .then(json => { 
                 console.log(json);
                 setMovie(json);
+                window.scrollTo(0, 0);
             });
     }, [movieId]);
 
